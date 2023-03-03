@@ -1,0 +1,33 @@
+{
+  "name": "isveganadiet",
+  "version": "1.0.0",
+  "description": "Is vegan a diet?",
+  "homepage": "https://isveganadiet.com",
+  "browserlisturl": "https://browserslist.dev/?q=bGFzdCA0IHZlcnNpb25zLCA%2BPSAwLjUlLCBGaXJlZm94IEVTUiwgIG5vdCBkZWFk",
+  "browserslist": [
+    "last 4 versions",
+    ">= 0.5%",
+    "Firefox ESR",
+    "not dead"
+  ],
+  "scripts": {
+    "dev": "run-p dev:*",
+    "dev:watch": "tailwindcss --postcss -i ./src/styles.css -o ./public/styles.css -w",
+    "build": "NODE_ENV=production npx tailwindcss --postcss -i ./src/styles.css -o ./public/styles.css  --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VeganSpeak/isveganadiet.git"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.8",
+    "cssnano": "^5.1.14",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.20",
+    "postcss-import": "^15.1.0",
+    "postcss-nested": "^6.0.0",
+    "postcss-preset-env": "^7.8.3",
+    "tailwindcss": "^3.2.4"
+  }
+}
