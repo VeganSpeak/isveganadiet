@@ -78,78 +78,78 @@
 
 					<p>The ethical treatment of animals is a reflection of our collective humanity. As we face global challenges such as climate change, resource depletion, and social inequality, embracing vegan ethics can help foster empathy, compassion, and a greater sense of interconnectedness. By recognizing the inherent value of all living beings, we can work together to create a more just and sustainable world for future generations.</p>
 
-					<h4>Animals killed for food since opening this page</h4>
-					<ul class="animal-kill-counter">
-						<li><span id="akc-wild_caught_fish">0</span> wild caught fish</li>
-						<li><span id="akc-chickens">0</span> chickens</li>
-						<li><span id="akc-farmed_fish">0</span> farmed fish</li>
-						<li><span id="akc-ducks">0</span> ducks</li>
-						<li><span id="akc-pigs">0</span> pigs</li>
-						<li><span id="akc-rabbits">0</span> rabbits</li>
-						<li><span id="akc-geese">0</span> geese</li>
-						<li><span id="akc-turkeys">0</span> turkeys</li>
-						<li><span id="akc-sheep">0</span> sheep</li>
-						<li><span id="akc-goats">0</span> goats</li>
-						<li><span id="akc-cattle">0</span> cattle</li>
-						<li><span id="akc-rodents">0</span> rodents</li>
-						<li><span id="akc-other_birds">0</span> pigeons and other birds</li>
-						<li><span id="akc-buffalo">0</span> buffalo</li>
-						<li><span id="akc-horses">0</span> horses</li>
-						<li><span id="akc-donkeys">0</span> donkeys and mules</li>
-						<li><span id="akc-camels">0</span> camels and other camelids</li>
-					</ul>
+					<h4 class="text-red-600">Animals killed for consumption since opening this page</h4>
 
-					<h5>Sources</h5>
+					<div class="akc-counter xl:text-7xl md:text-6xl pb-8 text-4xl font-bold text-red-500" id="akc-total"></div>
+					<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const updatesPerSecond = 20;
+  const animalsKilledPerYear = {
+    wild_caught_fish: 970000000000,
+		chickens: 72118779000,
+    farmed_fish: 38000000000,
+		ducks: 3311899000,
+    pigs: 1451856889,
+		rabbits: 633013000,
+		geese: 723648000,
+		turkeys: 635955000,
+		sheep: 602319130,
+    goats: 502808495,
+    cattle: 324518029,
+    rodents: 70977000,
+    other_birds: 46216000,
+    buffalo: 27692388,
+    horses: 4940693,
+    donkeys: 1958602,
+    camels: 2991884,
+		other_camelids: 967656,
+		deer: 628542,
+		mules: 130804
+  };
+  const akcTotal = Object.values(animalsKilledPerYear).reduce((a, b) => a + b, 0);
+  animalsKilledPerYear.total = akcTotal;
+
+  const secondsPerYear = 365 * 24 * 60 * 60;
+  const interval = 1000 / updatesPerSecond;
+  let count = 0;
+  let start = performance.now();
+
+  const countElements = {};
+  for (const subset of Object.keys(animalsKilledPerYear)) {
+    countElements[subset] = document.getElementById(`akc-${subset}`);
+  }
+
+  function update(intervalCount) {
+    for (const [subset, numKilled] of Object.entries(animalsKilledPerYear)) {
+      const countElement = countElements[subset];
+      if (countElement) {
+        const count = Math.round(intervalCount * (numKilled / secondsPerYear) / updatesPerSecond);
+        countElement.textContent = Intl.NumberFormat().format(count);
+      }
+    }
+  }
+
+  function selfCorrectingRAFInterval() {
+    const now = performance.now();
+    const elapsed = now - start;
+    if (elapsed >= count * interval) {
+      update(++count);
+    }
+    window.requestAnimationFrame(selfCorrectingRAFInterval);
+  }
+
+  window.requestAnimationFrame(selfCorrectingRAFInterval);
+});
+
+					</script>
+
+					<p>It is estimated that each year <a href="https://www.fao.org/faostat/en/#data/QCL" target="_blank" rel="noopener noreferrer">80 billion land animals</a> and trillions of sea animals are slaughtered for consumption.</p>
+					<h5>Sources:</h5>
 					<ul>
 						<li><a href="https://considerveganism.com/counter/" target="_blank" rel="noopener noreferrer">considerveganism.com</a></li>
-						<li><a href="http://faostat3.fao.org/download/Q/QL/E" target="_blank" rel="noopener noreferrer">FAOSTAT [Region: <i>World + (Total)</i>, Element: <i>Producing Animals/Slaughtered</i>, Items Aggregated: <i>Meat, Total > (List)</i>, Year: <i>2013</i>]</a></li>
-						<li><a href="http://fishcount.org.uk/fish-count-estimates" target="_blank" rel="noopener noreferrer">Fish count estimates (fishcount.org.uk)</a></li>
+						<li><a href="https://faunalytics.org/global-animal-slaughter-statistics-charts-2022-update" target="_blank" rel="noopener noreferrer">faunalytics.org (FAO)</a></li>
+						<li><a href="http://fishcount.org.uk/fish-count-estimates" target="_blank" rel="noopener noreferrer">fishcount.org.uk</a></li>
 					</ul>
-
-					<script>
-						window.addEventListener('DOMContentLoaded',function(){
-							var updatesPerSecond = 20;
-							var animalsKilledPerYear = {
-								"wild_caught_fish": 970000000000,
-								"chickens": 61171973510,
-								"farmed_fish": 38000000000,
-								"ducks": 2887594480,
-								"pigs": 1451856889.38,
-								"rabbits": 1171578000,
-								"geese": 687147000,
-								"turkeys": 618086890,
-								"sheep": 536742256.33,
-								"goats": 438320370.99,
-								"cattle": 298799160.08,
-								"rodents": 70371000,
-								"other_birds": 59656000,
-								"buffalo": 25798819,
-								"horses": 4863367,
-								"donkeys": 3213400,
-								"camels": 3243266.03,
-							};
-
-							var secondsPerYear = 365 * 24 * 60 * 60;
-							var interval = 1000/ updatesPerSecond;
-							var count = 0, start = new Date().getTime();
-
-							function update(intervalCount) {
-								for (var subset in animalsKilledPerYear) {
-									var numKilled = animalsKilledPerYear[subset];
-									var countElement = document.getElementById("akc-" + subset);
-									if (countElement) {
-										countElement.innerHTML = Math.round(intervalCount * (numKilled/secondsPerYear) / updatesPerSecond).toLocaleString();
-									}
-								}
-							}
-
-							function selfCorrectingTimeoutInterval() {
-								update(++count);
-								window.setTimeout(selfCorrectingTimeoutInterval, interval - (new Date().getTime() - start - count * interval));
-							}
-							window.setTimeout(selfCorrectingTimeoutInterval, interval);
-						});
-						</script>
 
 					<hr>
 
